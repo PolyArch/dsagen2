@@ -1,6 +1,6 @@
 # Domain-Specific Accelerator Generator 2
 
-Contributors: [Sihao Liu](https://www.linkedin.com/in/sihao-liu/), [Dylan Kupsh](https://www.linkedin.com/in/dkupsh/), [Maxim Zhulin](https://github.com/map0te), [Lucheng Zhang](https://lucian.run/)
+Contributors: [Sihao Liu](https://web.cs.ucla.edu/~sihao/), [Dylan Kupsh](https://www.linkedin.com/in/dkupsh/), [Maxim Zhulin](https://github.com/map0te), [Lucheng Zhang](https://lucian.run/)
 
 ***DSAGen2 Development Status***
 

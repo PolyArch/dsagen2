@@ -48,6 +48,6 @@
 
 =============================================================
 
-Due to AMD/Xilinx license, we cannot distribute generated IP.
+Due to AMD/Xilinx license, we cannot distribute Vivado generated IP.
 
-We will distribute FPGA IP generation script in the future.
+Please contact (me)[mailto:sihao@cs.ucla.edu] for IP generation script.

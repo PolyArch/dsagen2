@@ -50,4 +50,4 @@
 
 Due to AMD/Xilinx license, we cannot distribute Vivado generated IP.
 
-Please contact (me)[mailto:sihao@cs.ucla.edu] for IP generation script.
+Please contact [me](mailto:sihao@cs.ucla.edu) for IP generation script.

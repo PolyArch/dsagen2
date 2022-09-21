@@ -18,6 +18,18 @@ class WithDevDSA
       case SystemBusKey => up(SystemBusKey).copy(beatBytes = 32)
     })
 
+class WithDemoDSA
+  extends Config((site, here, up) => {
+    // Add DSAGen as an RoCC Accelerator
+    case BuildRoCC =>
+      up(BuildRoCC) ++ Seq((p: Parameters) => {
+        val dsa = LazyModule(new Mesh(4)(p ++ new WithDebuggable ++ new PrintADG))
+        dsa
+      })
+    // Change the System Bus Width
+    case SystemBusKey => up(SystemBusKey).copy(beatBytes = 32)
+  })
+
 class WithMeshDSA
     extends Config((site, here, up) => {
       // Add DSAGen as an RoCC Accelerator

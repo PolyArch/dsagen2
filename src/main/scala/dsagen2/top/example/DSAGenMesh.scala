@@ -13,16 +13,16 @@ import dsagen2.top.module._
 // Mesh DSA Example
 class DSAGenMesh(implicit p: Parameters) extends DSAGen {
   /* ----- Node Creation ----- */
+  val numRow: Int = 7
+  val numCol: Int = 5
 
   // Sync Nodes
-  val ivps: Array[IVPNodeModule] = Array.fill(7)(createIVP(new FullIVPConfig))
-  val ovps: Array[OVPNodeModule] = Array.fill(5)(createOVP(new FullOVPConfig))
+  val ivps: Array[IVPNodeModule] = Array.fill(numRow)(createIVP(new FullIVPConfig))
+  val ovps: Array[OVPNodeModule] = Array.fill(numCol)(createOVP(new FullOVPConfig))
 
   // Compute Nodes
-  val meshSize: Int = 6
-  val vpWidth:  Int = meshSize - 1
-  val swMesh:   Array[Array[CompNodeModule]] = createCompNodeMesh(new DefaultSWConfig, meshSize + 1, vpWidth)
-  val peMesh:   Array[Array[CompNodeModule]] = createCompNodeMesh(new PE_Simple64_Config, meshSize, vpWidth - 1)
+  val swMesh:   Array[Array[CompNodeModule]] = createCompNodeMesh(new DefaultSWConfig, numRow, numCol)
+  val peMesh:   Array[Array[CompNodeModule]] = createCompNodeMesh(new PE_Simple64_Config, numRow-1, numCol-1)
 
   // Memory Nodes
   val dma0: MemNodeModule = createMemNode(new DefaultDMAConfig)
@@ -38,10 +38,10 @@ class DSAGenMesh(implicit p: Parameters) extends DSAGen {
   val swList: List[CompNodeModule] = swMesh.flatten.toList
 
   // Input Vector Ports, random connection to switch network
-  ivps.zip(swList.grouped(vpWidth).toSeq).foreach { case (ivp, sws) => ivp ==> sws }
+  ivps.zip(swList.grouped(numCol).toSeq).foreach { case (ivp, sws) => ivp ==> sws }
 
   // Output Vector Ports
-  ovps.zip(swList.reverse.grouped(vpWidth).toSeq).foreach { case (ovp, sws) => ovp <== sws }
+  ovps.zip(swList.reverse.grouped(numCol).toSeq).foreach { case (ovp, sws) => ovp <== sws }
 
   // DMA
   ivps.foreach(dma0 --> _);

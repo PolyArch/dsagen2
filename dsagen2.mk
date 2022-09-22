@@ -1,5 +1,5 @@
 # Directory setup
-SS 		?= /home/sihao/repo/ss-stack
+SS_APPS		?= $(SS)/dsa-apps
 DSAGEN_MF_PATH 	:= $(abspath $(lastword $(MAKEFILE_LIST)))
 DSAGEN_DIR 	?= $(dir $(DSAGEN_MF_PATH))
 ADG_DIR 	?= $(DSAGEN_DIR)adg
@@ -36,17 +36,17 @@ DSP_KERNELS := mm2 fft cholesky solver fir
 # Default workloads
 ifeq ($(WORKLOAD), vision)
   SS_TESTS := $(VISION_KERNELS)
-  SS_APP_DIR := $(SS_APPS)/Compilation/MultiCore/Vision
+  SS_APP_DIR := $(SS_APPS)/compiled/MultiCore/Vision
 else ifeq ($(WORKLOAD), machsuite)
   SS_TESTS := $(MACHSUITE_KERNELS) 
-  SS_APP_DIR := $(SS_APPS)/Compilation/MultiCore/MachSuite
+  SS_APP_DIR := $(SS_APPS)/compiled/MultiCore/MachSuite
 else ifeq ($(WORKLOAD), dsp)
   SS_TESTS := $(DSP_KERNELS)
-  SS_APP_DIR := $(SS_APPS)/Compilation/MultiCore/Dsp
+  SS_APP_DIR := $(SS_APPS)/compiled/MultiCore/Dsp
 else
   WORKLOAD := microbench
   SS_TESTS := $(MICROBENCH)
-  SS_APP_DIR := $(SS_APPS)/Compilation/Tests
+  SS_APP_DIR := $(SS_APPS)/compiled/Tests
 endif
   
 # Default Hardware (Architecture Description Graph, ADG)
@@ -88,7 +88,7 @@ debugall: $(addprefix debug-, $(WORKLOAD_SET))
 
 # Collect result
 collectcycle-%:
-	$(SS_APPS)/Compilation/Common/wash_trace.sh $(SS_BINARY_DIR)/$(WORKLOAD)/ss-$*.riscv $(output_dir)/ss-$*.out
+	$(SS_APPS)/compiled/Common/wash_trace.sh $(SS_BINARY_DIR)/$(WORKLOAD)/ss-$*.riscv $(output_dir)/ss-$*.out
 collectcycle: $(addprefix collectcycle-, $(SS_TESTS))
 collectset-%:
 	make WORKLOAD=$* collectcycle

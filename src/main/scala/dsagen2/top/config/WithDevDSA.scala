@@ -23,7 +23,7 @@ class WithDemoDSA
     // Add DSAGen as an RoCC Accelerator
     case BuildRoCC =>
       up(BuildRoCC) ++ Seq((p: Parameters) => {
-        val dsa = LazyModule(new Mesh(4)(p ++ new WithDebuggable ++ new PrintADG))
+        val dsa = LazyModule(new Demo()(p ++ new WithDebuggable ++ new PrintADG))
         dsa
       })
     // Change the System Bus Width
